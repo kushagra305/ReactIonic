@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>React Ionic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <link href="https://unpkg.com/@ionic/core@4.0.0-beta.7/css/ionic.bundle.css" rel="stylesheet">
+<script src="https://unpkg.com/@ionic/core@4.0.0-beta.7/dist/ionic.js"></script>
+ <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root">
+	
+</div>
+
+  <script type="text/babel">
+  
+	const IonReactList=(props) =>{
+	
+	const renderNews =	props.topNews.map(news=>{
+						return(
+							 <ion-card>
+									<ion-card-header>
+										<ion-card-subtitle>{news.author}</ion-card-subtitle>
+										<ion-card-title>{news.title}</ion-card-title>
+									</ion-card-header>
+									<ion-card-content>
+										<ion-img  src={news.urlToImage}/>
+										<ion-text color="primary">
+										{news.description}
+										</ion-text>
+								</ion-card-content>
+								</ion-card>
+						)
+					})
+	return (
+		<ion-list>
+			{renderNews}
+		</ion-list>  
+	)
+	}
+	
+	class ReactContent extends React.Component{
+		constructor(props){
+			super(props);
+			
+			this.state = {
+				topNews : []
+			}
+		}
+		
+	
+	 async presentLoading() {
+		  const loadingController = document.querySelector('ion-loading-controller');
+		  await loadingController.componentOnReady();
+		  const loadingElement = await loadingController.create({
+			message: 'Loading...',
+			duration: 2000
+		  });
+		  return await loadingElement.present();
+		}
+		
+		
+		componentDidMount(){
+		this.presentLoading();
+			 let topNews = [{title:'top news'}];
+			fetch('https://newsapi.org/v2/top-headlines?sources=the-verge&apiKey=f32fd385b0b640e7a0b86aa259f16631')
+				.then(response=>{
+					response.json()
+					.then(res=>{
+					topNews = res.articles
+					this.setState({topNews:res.articles})
+					
+					})
+				})
+		}
+		
+		
+		
+		render(){
+			return(
+			<ion-content id='content' fullscreen>
+				<IonReactList topNews={this.state.topNews}/>
+				 <ion-loading-controller></ion-loading-controller>
+			</ion-content>
+			)
+		}
+	}
+	
+	    ReactDOM.render(
+		<ion-app>
+		<ion-header primary>
+		  <ion-toolbar background="red">
+			<ion-title>Top News</ion-title>
+		  </ion-toolbar>
+		</ion-header>
+			<ReactContent />
+		</ion-app>,
+        document.getElementById('root')
+      );
+  </script>
+</body>
+
+</html>
