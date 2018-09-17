@@ -17,7 +17,13 @@
 		console.log('Notification permission granted.');
 	}).catch(function(err){
 		console.log('Unable to get permission to notify.', err);
-	})
+  })
+  
+
+  navigator.serviceWorker.register('firebase-messaging-sw.js')
+  .then((register)=>{
+      messaging.useServiceWorker(register);
+  })    
 
 	// Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
