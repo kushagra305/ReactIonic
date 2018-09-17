@@ -20,7 +20,7 @@
     })
     
 
-navigator.serviceWorker.register('firebase-messaging-sw.js')
+navigator.serviceWorker.register('/ReactIonic/firebase-messaging-sw.js')
     .then((register)=>{
         messaging.useServiceWorker(register);
     })    
