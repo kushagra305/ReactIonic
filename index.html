@@ -5,13 +5,21 @@
   <meta charset="UTF-8">
   <title>React Ionic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <link href="https://unpkg.com/@ionic/core@4.0.0-beta.7/css/ionic.bundle.css" rel="stylesheet">
+<link href="https://unpkg.com/@ionic/core@4.0.0-beta.7/css/ionic.bundle.css" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
 <script src="https://unpkg.com/@ionic/core@4.0.0-beta.7/dist/ionic.js"></script>
- <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+<script src='app.js'>
+</script>
+	<style>
+		:root {
+			--ion-toolbar-text-color:"#FF5722";
+		}
+	</style>	
 </head>
 
 <body>
@@ -93,10 +101,10 @@
 		}
 	}
 	
-	    ReactDOM.render(
+	  ReactDOM.render(
 		<ion-app>
 		<ion-header primary>
-		  <ion-toolbar background="red">
+		  <ion-toolbar>
 			<ion-title>Top News</ion-title>
 		  </ion-toolbar>
 		</ion-header>
@@ -104,7 +112,9 @@
 		</ion-app>,
         document.getElementById('root')
       );
-  </script>
+	</script>
+	
+	
 </body>
 
 </html>
