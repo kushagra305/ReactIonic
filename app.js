@@ -10,7 +10,7 @@
 	firebase.initializeApp(config);
 	
 	const messaging = firebase.messaging();
-
+  const database  = firebase.database();
 	messaging.usePublicVapidKey('BBFLvcR7_yr58n05gXTc8DRgiCw2ZIjx_THjudWUqe2b0-Ad2yJPNB7YolE0OShUw-TZddU_KYjzAf9uHRj6c5Q');
 
 	messaging.requestPermission().then(function(){
@@ -30,7 +30,7 @@
 messaging.getToken().then(function(currentToken) {
   if (currentToken) {
 		console.log(currentToken);
-   // sendTokenToServer(currentToken);
+   sendTokenToServer(currentToken);
     //updateUIForPushEnabled(currentToken);
   } else {
     // Show permission request.
@@ -51,7 +51,7 @@ messaging.onTokenRefresh(function() {
     console.log('Token refreshed.');
     // Indicate that the new Instance ID token has not yet been sent to the
     // app server.
-    //setTokenSentToServer(false);
+    setTokenSentToServer(false);
     // Send Instance ID token to app server.
     //sendTokenToServer(refreshedToken);
     // ...
@@ -64,3 +64,9 @@ messaging.onMessage((payload) => {
   console.log("Message received. ", payload);
   
 });
+
+function setTokenSentToServer(token){
+  database.ref('device/'+token).set({
+    token:token
+  })
+}
