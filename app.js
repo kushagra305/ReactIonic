@@ -20,10 +20,10 @@
     })
     
 
-navigator.serviceWorker.register('/ReactIonic/firebase-messaging-sw.js')
+    navigator.serviceWorker.register('/ReactIonic/firebase-messaging-sw.js')
     .then((register)=>{
         messaging.useServiceWorker(register);
-    })    
+    })     
 
 	// Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
@@ -59,4 +59,8 @@ messaging.onTokenRefresh(function() {
     console.log('Unable to retrieve refreshed token ', err);
    // showToken('Unable to retrieve refreshed token ', err);
   });
+});
+messaging.onMessage((payload) => {
+  console.log("Message received. ", payload);
+  
 });
