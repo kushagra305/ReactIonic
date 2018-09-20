@@ -10,7 +10,7 @@
 	firebase.initializeApp(config);
 	
 	const messaging = firebase.messaging();
-
+  const database  = firebase.database();
 	messaging.usePublicVapidKey('BBFLvcR7_yr58n05gXTc8DRgiCw2ZIjx_THjudWUqe2b0-Ad2yJPNB7YolE0OShUw-TZddU_KYjzAf9uHRj6c5Q');
 
 	messaging.requestPermission().then(function(){
